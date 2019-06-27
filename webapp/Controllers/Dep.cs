@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace webapp.Controllers
 {
 
-        public class AboutUsDependancy
+    public class AboutUsDependancy
+    {
+        public void RegisterDependencies(IServiceCollection services)
         {
-            public void RegisterDependencies(IServiceCollection services)
-            {
-                services.AddTransient<AboutUsDbContext>();
-            }
+            services.AddTransient<AboutUsDbContext>();
         }
-    
+    }
+
 }

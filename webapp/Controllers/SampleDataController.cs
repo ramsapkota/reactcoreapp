@@ -34,6 +34,15 @@ namespace webapp.Controllers
             return Ok(data);
         }
 
+        [HttpPost("[action]")]
+        public async Task<IActionResult> RemoveTodo([FromBody]Todo model)
+        {
+            //save todo
+            var datt = model.Id;
+            var data = await AboutUsDbContext.RemoveTodo(model.Id);
+            return Ok(data);
+        }
+
         [HttpGet("[action]")]
         public async Task<IActionResult> GetTodo()
         {
@@ -42,6 +51,8 @@ namespace webapp.Controllers
             return Ok(data);
 
         }
+
+
 
         [HttpGet("[action]")]
         public IEnumerable<WeatherForecast> WeatherForecasts(int startDateIndex)

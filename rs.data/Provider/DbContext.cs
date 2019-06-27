@@ -108,6 +108,7 @@ namespace sc.data
         {
             p.Params.Add("@IsDbSuccess", dbType: DbType.Boolean, direction: ParameterDirection.Output);
             p.Params.Add("@DbMessage", dbType: DbType.String, size: 256, direction: ParameterDirection.Output);
+            p.Params.Add("@ReturnId", dbType: DbType.String, size: 10, direction: ParameterDirection.Output);
 
             using (IDbConnection con = OpenConnection())
             {
@@ -115,7 +116,8 @@ namespace sc.data
                 return new DbResult
                 {
                     IsDbSuccess = p.Get<bool>("@IsDbSuccess"),
-                    DbMessage = p.Get<string>("@DbMessage")
+                    DbMessage = p.Get<string>("@DbMessage"),
+                    ReturnId = p.Get<string>("@ReturnId")
                 };
             }
         }

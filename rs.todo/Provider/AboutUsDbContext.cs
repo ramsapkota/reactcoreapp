@@ -13,7 +13,7 @@ namespace sc.aboutUs.Provider
     {
         public AboutUsDbContext() : base("DefaultConnection") { }
 
-        public async Task<PagedData<Todo>> GetTodo(int pageNo = 1, int itemsPerPage = 50, int pagePerDisplay = 5)
+        public async Task<PagedData<Todo>> GetTodo(int pageNo = 1, int itemsPerPage = 5, int pagePerDisplay = 5)
         {
             try
             {
@@ -49,6 +49,22 @@ namespace sc.aboutUs.Provider
                 p.Add("@Status", info.Status);
 
                 var data = await this.ExecuteDbResultAsync("dbo.todo_save", p);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<DbResult> RemoveTodo(int id)
+        {
+            try
+            {
+                var p = new Parameters();
+                p.Add("@Id", id);
+
+                var data = await this.ExecuteDbResultAsync("dbo.todo_delete", p);
                 return data;
             }
             catch (Exception ex)

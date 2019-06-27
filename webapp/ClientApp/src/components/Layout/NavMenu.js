@@ -1,9 +1,11 @@
 import React from 'react';
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { actionCreators } from '../../store/AuthStore/Auth'
+import { bindActionCreators } from 'redux';
 import './NavMenu.css';
-
-export default class NavMenu extends React.Component {
+class NavMenu extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,6 +20,17 @@ export default class NavMenu extends React.Component {
         });
     }
     render() {
+        const GuestLinks = (
+            <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/signin">Sign in</NavLink>
+            </NavItem>
+        );
+        const AuthLinks = (
+            <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/FetchData">Log Out</NavLink>
+            </NavItem>
+        )
+        const { auth } = this.props;
         return (
             <header>
                 <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
@@ -35,6 +48,7 @@ export default class NavMenu extends React.Component {
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/FetchData">Todos</NavLink>
                                 </NavItem>
+                               {auth.isAuthenticated ? AuthLinks :GuestLinks}
                             </ul>
                         </Collapse>
                     </Container>
@@ -43,3 +57,8 @@ export default class NavMenu extends React.Component {
         );
     }
 }
+
+export default connect(
+    state => state.auth,
+    dispatch => bindActionCreators(actionCreators, dispatch)
+)(NavMenu);

@@ -1,0 +1,19 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "AppSettings": {
+    "DataConnection": "Server=.;uid=sa;pwd=password;database=databse;"
+
+  },
+  "tokenManagement": {
+    "secret": "secret",
+    "issuer": "issue user",
+    "audience": audience",
+    "accessExpiration": 1000 expiration,
+    "refreshExpiration": 1000 refreshToken
+  }
+}

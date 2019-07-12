@@ -9,7 +9,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import setAuthorizationToken from './store/AuthStore/setAuthorizationToken';
 import jwt from 'jsonwebtoken';
-import * as Auth from './store/AuthStore/Auth';
+import * as Auth from './store/AuthStore/Auth'
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -30,8 +31,8 @@ const rootElement = document.getElementById('root');
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
+        <ConnectedRouter history={history}>
+            <App auth={store} />
     </ConnectedRouter>
   </Provider>,
   rootElement);

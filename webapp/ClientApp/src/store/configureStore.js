@@ -4,7 +4,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import * as Counter from './Counter';
 import * as Todos from './Todos';
 import * as WeatherForecasts from './WeatherForecasts';
-import * as Auth from './AuthStore/Auth';
+import * as Auth from './Auth/Auth';
 
 export default function configureStore(history, initialState) {
     const reducers = {

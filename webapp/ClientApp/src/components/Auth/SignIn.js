@@ -16,9 +16,9 @@ class SignIn extends React.Component {
     }
 
     redirectToDashboard = (props) => {
-        if (props.auth.isAuthenticated) {
-            props.history.push('/');
-        }
+        //if (props.auth.authenticated) {
+        //    props.history.push('/');
+        //}
     }
     componentDidUpdate() {
         this.redirectToDashboard(this.props);

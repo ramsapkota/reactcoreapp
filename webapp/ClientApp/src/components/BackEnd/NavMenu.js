@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionCreators } from '../../store/AuthStore/Auth'
@@ -22,9 +22,14 @@ class NavMenu extends React.Component {
     }
     render() {
         const GuestLinks = (
-            <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/signin">Sign in</NavLink>
-            </NavItem>
+            <React.Fragment>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/SignIn">Sign In</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark" to="/SingUp">Sign Up</NavLink>
+                </NavItem>
+            </React.Fragment >
         );
         const AuthLinks = (
             <NavItem>
@@ -43,18 +48,12 @@ class NavMenu extends React.Component {
                                 <NavItem>
                                     <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                                 </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/todos">Todos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink tag={Link} className="text-dark" to="/FetchData">Todos</NavLink>
-                                </NavItem>
-                               {auth.isAuthenticated ? AuthLinks :GuestLinks}
+                                {auth.isAuthenticated ? AuthLinks : GuestLinks}
                             </ul>
                         </Collapse>
                     </Container>
                 </Navbar>
-            </header>           
+            </header>
         );
     }
 }

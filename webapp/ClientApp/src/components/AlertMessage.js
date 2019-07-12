@@ -1,6 +1,5 @@
 import React from 'react';
-import { Alert } from 'reactstrap';
-
+import {Alert} from 'reactstrap'
 
 class AlertMessage extends React.Component {
 

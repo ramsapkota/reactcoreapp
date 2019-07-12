@@ -1,9 +1,11 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { actionCreators } from '../store/Todos';
-import { Button, Form, FormGroup, Label, Input, Table } from 'reactstrap';
+    import { connect } from 'react-redux';
+    import { actionCreators } from '../store/Todos';
 import AlertMessage from './AlertMessage';
+import Pager from './Helper/Pager'
+import { Form, FormGroup, Label, Input, Button, Table } from 'reactstrap'
+
 
 class Todo extends React.Component {
     state = {
@@ -33,17 +35,23 @@ class Todo extends React.Component {
         this.setState({ [name]: value }, () => { this.validateField(name, value) })
     }
 
+    handelPageChange = page => {
+        this.ensureDataFetched(page);
+    }
+
     validateField = (name, value) => {
         return true
     }
 
-    ensureDataFetched() {
-        this.props.requestTodos();
+    ensureDataFetched(pageNo = 1) {
+        const pager = { pageNo: pageNo, itemsPerPage: 20, pagePerDisplay: 5 }
+        this.props.requestTodos(pager);
     }
 
     componentDidMount() {
         this.ensureDataFetched();
     }
+   
 
     render() {
         return (
@@ -55,20 +63,20 @@ class Todo extends React.Component {
                             : true
                     }
                     <h1 className="text-center display-4">Todo</h1>
-                    <Form onSubmit={this.handleSumbit}>
-                        <FormGroup>
-                            <Label for="exampleEmail">Todo Title</Label>
-                            <Input type="text" id="title"
-                                autoFocus="true"
-                                name="title" onChange={this.handleChange} value={this.state.title} placeholder="Todo Title" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="exampleEmail">Department</Label>
-                            <Input type="text" id="department" name="department" onChange={this.handleChange} value={this.state.department} placeholder="Department" />
-                        </FormGroup>
-                        <Button className="btn btn-info btn-block">Submit</Button>
-                    </Form>
                     <div>
+                        <Form onSubmit={this.handleSumbit}>
+                            <FormGroup>
+                                <Label for="exampleEmail">Todo Title</Label>
+                                <Input type="text" id="title"
+                                    autoFocus="true"
+                                    name="title" onChange={this.handleChange} value={this.state.title} placeholder="Todo Title" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleEmail">Department</Label>
+                                <Input type="text" id="department" name="department" onChange={this.handleChange} value={this.state.department} placeholder="Department" />
+                            </FormGroup>
+                            <Button className="btn btn-info btn-block">Submit</Button>
+                        </Form>
                         {this.requestTodosTable(this.props)}
                     </div>
                 </div>
@@ -78,25 +86,28 @@ class Todo extends React.Component {
 
     requestTodosTable = (props) => {
         return (
-            <Table className="mt-5">
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.todos && props.todos.map((todo) =>
-                        <tr key={todo.id}>
-                            <td>{todo.title}</td>
-                            <td>{todo.department}</td>
-                            <td>{todo.status === true ? "true" : "false"}</td>
-                            <td><Button className="btn btn-sm- btn-danger" onClick={() => props.removeTodo(todo.id)}>X</Button></td>
+            <React.Fragment>
+                <Table className="mt-5">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Department</th>
+                            <th>Status</th>
                         </tr>
-                    )}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {props.todos && props.todos.map((todo) =>
+                            <tr key={todo.id}>
+                                <td>{todo.title}</td>
+                                <td>{todo.department}</td>
+                                <td>{todo.status === true ? "true" : "false"}</td>
+                                <td><Button className="btn btn-sm- btn-danger" onClick={() => props.removeTodo(todo.id)}>X</Button></td>
+                            </tr>
+                        )}
+                    </tbody>
+                </Table>
+                <Pager pager={props.pager} onPageChange={this.handelPageChange} />
+            </React.Fragment>
         )
     }
 }

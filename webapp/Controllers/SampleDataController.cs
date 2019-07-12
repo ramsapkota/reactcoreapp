@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using sc.aboutUs.Model;
 using sc.aboutUs.Provider;
+using sc.data;
 
 namespace webapp.Controllers
 {
@@ -43,10 +45,10 @@ namespace webapp.Controllers
             return Ok(data);
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetTodo()
+        [HttpPost("[action]")]
+        public async Task<IActionResult> GetTodo([FromBody]Pager p)
         {
-            var data = await AboutUsDbContext.GetTodo();
+            var data = await AboutUsDbContext.GetTodo(p.PageNo,p.ItemsPerPage,p.PagePerDisplay);
 
             return Ok(data);
 

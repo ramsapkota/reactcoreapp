@@ -26,6 +26,10 @@
     <ProjectReference Include="..\rs.todo\rs.todo.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\src\components\FrontEnd\" />
+  </ItemGroup>
+
 
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

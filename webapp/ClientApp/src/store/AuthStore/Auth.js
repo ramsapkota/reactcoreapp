@@ -6,10 +6,8 @@ const jwtToken = 'jwtToken';
 
 const initialState = {
     auth: {
-        isAuthenticated: false,
-        user: {
-
-        }
+        authenticated: false,
+        user: {}
     }
 }
 
@@ -38,7 +36,7 @@ export const reducer = (state = initialState, action) => {
             ...state,
             auth: {
                 user: unique_name
-            ,isAuthenticated: true
+                , authenticated: true
             }
         }
     }
